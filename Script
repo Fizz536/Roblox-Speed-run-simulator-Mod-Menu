@@ -1,1 +1,96 @@
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))
+local Window = Library.CreateLib("Hyprox v.1.0 Speed run simulator", "DarkTheme")
 
+-- MAIN
+local MAIN = Window:NewTab("Main")
+local MainSection = Main:NewSection("Basic")
+
+
+MainSection:NewButton("Give Free Pets", "Gives you free pets", function()
+    --From This:
+
+local args = {
+    [1] = "Silly Icecream",
+    [2] = false
+}
+
+game:GetService("ReplicatedStorage").Remotes.CanBuyEgg:InvokeServer(unpack(args))
+
+
+
+--To This:
+
+game:GetService("ReplicatedStorage").Remotes.CanBuyEgg:InvokeServer("Earth Butterfly", false)
+end)
+
+
+MainSection:NewToggle("Auto Orbs", "Makes you collect orbs whitout moving", function(state)
+    if state then
+        while wait(0.1) do
+            local orbs = game:GetService("Workspace").GameAssets.GlobalAssets.OrbSpawns
+            for i, v in pairs(orbs:GetChildren()) do
+            if v:IsA("MeshPart") then
+            local user = game.Players.LocalPlayer.Character.Head
+            firetouchinterest(user, v, 0)
+            elseif v:IsA("Model") then
+            local summerOrb = v["Orb.1"]
+            firetouchinterest(game.Players.LocalPlayer.Character.Head, summerOrb, 0)
+            end
+            end
+            end
+    else
+        while wait(0.1) do = false
+            local orbs = game:GetService("Workspace").GameAssets.GlobalAssets.OrbSpawns = false
+            for i, v in pairs(orbs:GetChildren()) do 
+            if v:IsA("MeshPart") then
+            local user = game.Players.LocalPlayer.Character.Head = false 
+            firetouchinterest(user, v, 0)
+            elseif v:IsA("Model") then 
+            local summerOrb = v["Orb.1"] 
+            firetouchinterest(game.Players.LocalPlayer.Character.Head, summerOrb, 0) = false
+            end
+            end
+            end
+    end
+end)
+
+Section:NewToggle("Auto Rebirth", "Makes you rebirth automatically", function(state)
+    if state then
+        game:GetService("ReplicatedStorage").Remotes.Rebirth:FireServer()
+    else
+        game:GetService("ReplicatedStorage").Remotes.Rebirth:FireServer() = false
+    end
+end)
+
+Section:NewButton("Infite Yield", "Gives you FE Admin Commands", function()
+    loadstring(game.HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
+end)
+
+--LOCAL PLAYER
+local player = Window:NewTab("Player")
+local PlayerSection = Tab:NewSection("Player")
+
+PlayerSection:NewSlider("Walkespeed", "Speed!", 500, 0, function(s) -- 500 (MaxValue) | 0 (MinValue)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
+end)
+
+PlayerSection:NewSlider("Jumppower", "Jump high!", 350, 50, function(s) -- 500 (MaxValue) | 0 (MinValue)
+    game.Players.LocalPlayer.Character.Humanoid.JumpPower = s
+end)
+
+Section:NewButton("Reset All", "Resets to all defaults", function()
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
+    game.Players.LocalPlayer.Character.Humanoid.JumpPower = 50
+end)
+
+--OTHER
+local Other = Window:NewTab("Other")
+local OtherSection = Other:NewSection("Other")
+
+OtherSection:NewButton("Chat Spoofer", "Lets you chat for other people", function()
+    loadstring(game:HttpGet(('https://pastebin.com/raw/djBfk8Li'),true))()
+end)
+
+OtherSection:NewButton("Fly Bypass", "Makes you fly around", function()
+    loadstring(game:HttpGet(('https://github.com/zxciaz/The-Streets-Scripts/blob/master/Fly%20Bypass'),true))
+end)
